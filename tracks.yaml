@@ -14,7 +14,7 @@ tracks:
       :{release_inc}
     devel_branch: devel
     last_release: 4.1.1
-    last_version: 4.1.1
+    last_version: 4.1.2
     name: upstream
     patches: null
     release_inc: '1'
