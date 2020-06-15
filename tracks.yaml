@@ -13,13 +13,13 @@ tracks:
     - git-bloom-generate -y rosrpm --prefix release/:{ros_distro} :{ros_distro} -i
       :{release_inc}
     devel_branch: devel
-    last_release: 4.1.1
+    last_release: v4.1.2
     last_version: 4.1.2
     name: upstream
     patches: null
     release_inc: '1'
-    release_repo_url: null
-    release_tag: :{version}
+    release_repo_url: git@github.com:Rascof/dynamic-graph-release
+    release_tag: v:{version}
     ros_distro: melodic
     vcs_type: git
     vcs_uri: https://github.com/Rascof/dynamic-graph.git
