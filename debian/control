@@ -1,0 +1,12 @@
+Source: ros-foxy-dynamic-graph
+Section: misc
+Priority: optional
+Maintainer: Olivier Stasse <ostasse@laas.fr>
+Build-Depends: debhelper (>= 9.0.0), cmake, doxygen, git, graphviz, libboost-all-dev, libeigen3-dev, ros-foxy-ros-workspace
+Homepage: http://github.com/stack-of-tasks/dynamic-graph
+Standards-Version: 3.9.2
+
+Package: ros-foxy-dynamic-graph
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, graphviz, libboost-all-dev, libeigen3-dev, ros-foxy-ament-cmake, ros-foxy-ros-workspace
+Description: Dynamic graph library
