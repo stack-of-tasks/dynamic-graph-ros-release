@@ -16,7 +16,11 @@
 #include <dynamic-graph/tracer-real-time.h>
 #define BOOST_TEST_MODULE debug - tracer
 
+#if BOOST_VERSION >= 105900
+#include <boost/test/tools/output_test_stream.hpp>
+#else
 #include <boost/test/output_test_stream.hpp>
+#endif
 #include <boost/test/unit_test.hpp>
 using boost::test_tools::output_test_stream;
 
@@ -112,5 +116,5 @@ BOOST_AUTO_TEST_CASE(test_tracer) {
       "TracerRealTime my-tracer [mode=play] : \n"
       "  - Dep list: \n"
       "     -> MyEntity(my-entity)::input(double)::out_double (in output)"
-      "	[9Ko/16Ko]	\n"));
+      "	[8Ko/16Ko]	\n"));
 }

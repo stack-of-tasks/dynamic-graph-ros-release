@@ -26,13 +26,16 @@ INCLUDE(cmake/boost.cmake)
 # Project definition
 COMPUTE_PROJECT_ARGS(PROJECT_ARGS LANGUAGES CXX)
 PROJECT(${PROJECT_NAME} ${PROJECT_ARGS})
+CHECK_MINIMAL_CXX_STANDARD(11 ENFORCE)
 
 INCLUDE(cmake/pthread.cmake)  # needs to be included after the CXX definition
 
 # Project dependencies
+IF(BUILD_TESTING)
+  FIND_PACKAGE(Boost REQUIRED COMPONENTS unit_test_framework)
+ENDIF()
+ADD_PROJECT_DEPENDENCY(Boost REQUIRED COMPONENTS serialization system thread)
 ADD_PROJECT_DEPENDENCY(Eigen3 REQUIRED PKG_CONFIG_REQUIRES eigen3)
-SET(BOOST_COMPONENTS serialization system unit_test_framework thread)
-SEARCH_FOR_BOOST()
 SEARCH_FOR_PTHREAD()
 
 # Add configuration headers for plug-ins.
@@ -74,6 +77,7 @@ SET(${PROJECT_NAME}_HEADERS
   include/${CUSTOM_HEADER_DIR}/signal.t.cpp
   include/${CUSTOM_HEADER_DIR}/time-dependency.h
   include/${CUSTOM_HEADER_DIR}/time-dependency.t.cpp
+  # Kept for a brittle backward compatiblity.
   include/${CUSTOM_HEADER_DIR}/signal-caster.h
   include/${CUSTOM_HEADER_DIR}/signal-cast-helper.h
   include/${CUSTOM_HEADER_DIR}/all-signals.h
@@ -117,8 +121,6 @@ SET(${PROJECT_NAME}_SOURCES
   src/mt/process-list.cpp
 
   src/signal/signal-array.cpp
-  src/signal/signal-caster.cpp
-  src/signal/signal-cast-helper.cpp
 
   src/command/value.cpp
   src/command/command.cpp
@@ -128,10 +130,10 @@ ADD_LIBRARY(${PROJECT_NAME} SHARED
   ${${PROJECT_NAME}_SOURCES} ${${PROJECT_NAME}_HEADERS})
 TARGET_INCLUDE_DIRECTORIES(${PROJECT_NAME} SYSTEM PUBLIC ${EIGEN3_INCLUDE_DIR})
 TARGET_INCLUDE_DIRECTORIES(${PROJECT_NAME} PUBLIC $<INSTALL_INTERFACE:include>)
-TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${Boost_LIBRARIES})
+TARGET_LINK_LIBRARIES(${PROJECT_NAME} PUBLIC Boost::serialization Boost::system Boost::thread)
 
 IF(UNIX)
-  TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${CMAKE_DL_LIBS} pthread)
+  TARGET_LINK_LIBRARIES(${PROJECT_NAME} PUBLIC ${CMAKE_DL_LIBS} pthread)
 ENDIF(UNIX)
 
 IF(SUFFIX_SO_VERSION)
@@ -147,7 +149,9 @@ SET(PKG_CONFIG_EXTRA "plugindir=${DYNAMIC_GRAPH_PLUGINDIR}")
 SET(CMAKE_INSTALL_RPATH "${DYNAMIC_GRAPH_PLUGINDIR}")
 
 ADD_SUBDIRECTORY(src)
-ADD_SUBDIRECTORY(tests)
+IF(BUILD_TESTING)
+  ADD_SUBDIRECTORY(tests)
+ENDIF(BUILD_TESTING)
 
 PKG_CONFIG_APPEND_LIBS(${PROJECT_NAME})
 INSTALL(FILES package.xml DESTINATION share/${PROJECT_NAME})
