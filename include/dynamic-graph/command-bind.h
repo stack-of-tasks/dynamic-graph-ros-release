@@ -400,8 +400,7 @@ struct CommandReturnType0 : public Command {
 protected:
   virtual Value doExecute() {
     assert(getParameterValues().size() == 0);
-    Value res;
-    res = fptr();
+    Value res (fptr());
     return res;
   }
 
@@ -433,8 +432,9 @@ makeCommandReturnType0(E &entity, ReturnType (E::*function)(void),
 }
 
 template <typename ReturnType>
-inline std::string docCommandReturnType0(const std::string &doc,
-                                         const std::string &return_type) {
+inline std::string
+docCommandReturnType0(const std::string &doc,
+                      const std::string & /* return_type */) {
   return std::string("\n") + doc + "\n\nNo input.\n" +
          typeid(ReturnType).name() + " return.\n\n";
 }
@@ -461,7 +461,7 @@ protected:
     assert(getParameterValues().size() == 1);
     T val = getParameterValues()[0].value();
     Value res(fptr(val));
-    return res; // void
+    return res;
   }
 
 private:
@@ -527,8 +527,8 @@ protected:
     assert(getParameterValues().size() == 2);
     T1 val1 = getParameterValues()[0].value();
     T2 val2 = getParameterValues()[1].value();
-    fptr(val1, val2);
-    return Value(); // void
+    Value res(fptr(val1, val2));
+    return res;
   }
 
 private:
