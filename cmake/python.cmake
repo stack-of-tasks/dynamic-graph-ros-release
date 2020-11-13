@@ -41,7 +41,7 @@
 #.rst:
 # .. variable:: PYTHON_SITELIB
 #
-#  Absolute path where Python files will be installed.
+#  Relative path where Python files will be installed.
 
 #.rst:
 # .. variable:: PYTHON_EXT_SUFFIX
@@ -203,12 +203,6 @@ MACRO(FINDPYTHON)
     IF(PYTHON_PACKAGES_DIR)
       STRING(REGEX REPLACE "(site-packages|dist-packages)" "${PYTHON_PACKAGES_DIR}" PYTHON_SITELIB "${PYTHON_SITELIB}")
     ENDIF(PYTHON_PACKAGES_DIR)
-  ELSE(NOT PYTHON_SITELIB)
-    IF(WIN32)
-      STRING(REPLACE "\\" "/" PYTHON_SITELIB ${PYTHON_SITELIB})
-      MESSAGE(STATUS "python: ${PYTHON_SITELIB}")
-      SET(PYTHON_SITELIB ${PYTHON_SITELIB} PARENT_SCOPE)
-    ENDIF(WIN32)
   ENDIF(NOT PYTHON_SITELIB)
 
   MESSAGE(STATUS "Python site lib: ${PYTHON_SITELIB}")
@@ -398,13 +392,15 @@ ENDMACRO()
 # Build a Python file from the source directory in the build directory.
 #
 MACRO(PYTHON_BUILD MODULE FILE)
-  IF(NOT TARGET compile_pyc)
-    ADD_CUSTOM_TARGET(compile_pyc ALL)
+  # Regex from IsValidTargetName in CMake/Source/cmGeneratorExpression.cxx
+  STRING(REGEX REPLACE "[^A-Za-z0-9_.+-]" "_" compile_pyc "compile_pyc_${CMAKE_CURRENT_SOURCE_DIR}")
+  IF(NOT TARGET ${compile_pyc})
+    ADD_CUSTOM_TARGET(${compile_pyc} ALL)
   ENDIF()
   FILE(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/${MODULE}")
 
   ADD_CUSTOM_COMMAND(
-    TARGET compile_pyc
+    TARGET ${compile_pyc}
     PRE_BUILD
     COMMAND
     "${PYTHON_EXECUTABLE}"
