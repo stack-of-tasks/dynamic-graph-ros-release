@@ -15,7 +15,11 @@
 #include <dynamic-graph/signal.h>
 #include <iostream>
 
+#if BOOST_VERSION >= 105900
+#include <boost/test/tools/output_test_stream.hpp>
+#else
 #include <boost/test/output_test_stream.hpp>
+#endif
 #include <boost/test/unit_test.hpp>
 #include <boost/test/unit_test_suite.hpp>
 #include <string>
@@ -286,7 +290,7 @@ BOOST_AUTO_TEST_CASE(plug_signal_string) {
   inSigVec.recompute(1);
   output_test_stream output;
   inSigVec.get(output);
-  BOOST_CHECK(output.is_equal("1\n2\n3\n4\n5\n"));
+  BOOST_CHECK(output.is_equal("1 2 3 4 5"));
 
   Signal<std::string, int> s("signal");
   std::ostringstream os2;
