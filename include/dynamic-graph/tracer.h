@@ -7,6 +7,7 @@
 #define DYNAMIC_GRAPH_TRACER_H
 #include <boost/function.hpp>
 #include <list>
+#include <mutex>
 #include <string>
 
 #include <dynamic-graph/entity.h>
@@ -27,6 +28,7 @@ class DG_TRACER_DLLAPI Tracer : public Entity {
 protected:
   typedef std::list<const SignalBase<int> *> SignalList;
   SignalList toTraceSignals;
+  std::mutex files_mtx;
 
 public:
   enum TraceStyle {
