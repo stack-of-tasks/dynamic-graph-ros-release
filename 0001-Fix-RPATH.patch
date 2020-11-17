@@ -1,0 +1,32 @@
+From f736bb2ab50cbc2849599d8eeeb440d5835e17a7 Mon Sep 17 00:00:00 2001
+From: rascof <thomas.peyrucain@gmail.com>
+Date: Tue, 17 Nov 2020 15:11:47 +0100
+Subject: [PATCH] Fix RPATH
+
+---
+ src/CMakeLists.txt | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 79d64b2..658021e 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -4,6 +4,7 @@ SET(plugins
+   )
+ 
+ SET(tracer-real-time_deps tracer)
++set(BUILD_WITH_INSTALL_RPATH TRUE)
+ 
+ FOREACH(plugin ${plugins})
+   GET_FILENAME_COMPONENT(LIBRARY_NAME ${plugin} NAME)
+@@ -11,6 +12,7 @@ FOREACH(plugin ${plugins})
+ 
+   IF(SUFFIX_SO_VERSION)
+     SET_TARGET_PROPERTIES(${LIBRARY_NAME} PROPERTIES SOVERSION ${PROJECT_VERSION})
++    set_target_properties(${LIBRARY_NAME} PROPERTIES INSTALL_RPATH $ORIGIN)
+   ENDIF(SUFFIX_SO_VERSION)
+ 
+   TARGET_LINK_LIBRARIES(${LIBRARY_NAME} ${PROJECT_NAME} ${${LIBRARY_NAME}_deps})
+-- 
+2.17.1
+
