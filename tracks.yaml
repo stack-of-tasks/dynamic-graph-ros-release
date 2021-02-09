@@ -18,7 +18,7 @@ tracks:
     name: dynamic-graph
     patches: null
     release_inc: '1'
-    release_repo_url: https://github.com/stack-of-tasks/dynamic-graph-ros-release.git
+    release_repo_url: git@github.com:stack-of-tasks/dynamic-graph-ros-release.git
     release_tag: v:{version}
     ros_distro: eloquent
     vcs_type: git
@@ -43,7 +43,7 @@ tracks:
     name: dynamic-graph
     patches: null
     release_inc: '1'
-    release_repo_url: https://github.com/stack-of-tasks/dynamic-graph-ros-release.git
+    release_repo_url: git@github.com:stack-of-tasks/dynamic-graph-ros-release.git
     release_tag: v:{version}
     ros_distro: foxy
     vcs_type: git
@@ -70,7 +70,7 @@ tracks:
     name: dynamic-graph
     patches: null
     release_inc: '3'
-    release_repo_url: https://github.com/stack-of-tasks/dynamic-graph-ros-release.git
+    release_repo_url: git@github.com:stack-of-tasks/dynamic-graph-ros-release.git
     release_tag: v:{version}
     ros_distro: melodic
     vcs_type: git
@@ -97,7 +97,7 @@ tracks:
     name: dynamic-graph
     patches: null
     release_inc: '3'
-    release_repo_url: https://github.com/stack-of-tasks/dynamic-graph-ros-release.git
+    release_repo_url: git@github.com:stack-of-tasks/dynamic-graph-ros-release.git
     release_tag: v:{version}
     ros_distro: noetic
     vcs_type: git
