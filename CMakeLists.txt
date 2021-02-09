@@ -5,7 +5,6 @@ SET(PROJECT_ORG stack-of-tasks)
 SET(PROJECT_NAME dynamic-graph)
 SET(PROJECT_DESCRIPTION "Dynamic graph library")
 SET(PROJECT_URL "https://github.com/${PROJECT_ORG}/${PROJECT_NAME}")
-SET(PROJECT_SUFFIX "-v3")
 
 # Project options
 OPTION(SUFFIX_SO_VERSION "Suffix library name with its version" ON)
@@ -37,6 +36,12 @@ ENDIF()
 ADD_PROJECT_DEPENDENCY(Boost REQUIRED COMPONENTS serialization system thread)
 ADD_PROJECT_DEPENDENCY(Eigen3 REQUIRED PKG_CONFIG_REQUIRES eigen3)
 SEARCH_FOR_PTHREAD()
+
+IF(Boost_VERSION GREATER 107299 OR Boost_VERSION_MACRO GREATER 107299)
+  # Silence a warning about a deprecated use of boost bind by boost >= 1.73
+  # without dropping support for boost < 1.73
+  ADD_DEFINITIONS(-DBOOST_BIND_GLOBAL_PLACEHOLDERS)
+ENDIF()
 
 # Add configuration headers for plug-ins.
 GENERATE_CONFIGURATION_HEADER(
