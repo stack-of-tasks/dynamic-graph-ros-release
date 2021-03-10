@@ -92,11 +92,11 @@ tracks:
     - git-bloom-generate -y rosrpm --prefix release/:{ros_distro} :{ros_distro} -i
       :{release_inc} --os-name rhel
     devel_branch: devel
-    last_release: v4.3.3
-    last_version: 4.3.3
+    last_release: v4.3.4
+    last_version: 4.3.4
     name: dynamic-graph
     patches: null
-    release_inc: '4'
+    release_inc: '1'
     release_repo_url: https://github.com/stack-of-tasks/dynamic-graph-ros-release.git
     release_tag: v:{version}
     ros_distro: noetic
