@@ -1,4 +1,4 @@
-From 88b148c7b7ead8c85aca491d2de4f9198205ba7a Mon Sep 17 00:00:00 2001
+From 63d6e958945203707fb27df2fc1f71a0ed3661c9 Mon Sep 17 00:00:00 2001
 From: rascof <thomas.peyrucain@gmail.com>
 Date: Tue, 17 Nov 2020 15:11:47 +0100
 Subject: [PATCH] Fix RPATH
@@ -28,5 +28,5 @@ index 79d64b2..658021e 100644
  
    TARGET_LINK_LIBRARIES(${LIBRARY_NAME} ${PROJECT_NAME} ${${LIBRARY_NAME}_deps})
 -- 
-2.17.1
+2.30.1
 
