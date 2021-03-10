@@ -1,3 +1,26 @@
+## dynamic-graph (melodic) - 4.3.4-1
+
+The packages in the `dynamic-graph` repository were released into the `melodic` distro by running `/home/nim/.local/bin/bloom-release --rosdistro melodic dynamic-graph` on `Wed, 10 Mar 2021 17:43:17 -0000`
+
+The `dynamic-graph` package was released.
+
+Version of package(s) in repository `dynamic-graph`:
+
+- upstream repository: https://github.com/stack-of-tasks/dynamic-graph.git
+- release repository: https://github.com/stack-of-tasks/dynamic-graph-ros-release.git
+- rosdistro version: `4.3.1-3`
+- old version: `4.3.1-3`
+- new version: `4.3.4-1`
+
+Versions of tools used:
+
+- bloom version: `0.10.1`
+- catkin_pkg version: `0.4.23`
+- rosdep version: `0.20.0`
+- rosdistro version: `0.8.3`
+- vcstools version: `0.1.42`
+
+
 ## dynamic-graph (noetic) - 4.3.3-4
 
 The packages in the `dynamic-graph` repository were released into the `noetic` distro by running `/home/nim/.local/bin/bloom-release --rosdistro noetic dynamic-graph` on `Mon, 22 Feb 2021 12:57:26 -0000`
